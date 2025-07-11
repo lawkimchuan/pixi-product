@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pixi Product Configurator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 1rem;
+        }
+
+        select {
+            margin: 0 0.5rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Configure Your Chair</h1>
+
+    <label>
+        Color:
+        <select id="color">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+        </select>
+    </label>
+
+    <label>
+        Material:
+        <select id="material">
+            <option value="wood">Wood</option>
+            <option value="metal">Metal</option>
+        </select>
+    </label>
+
+    <label>
+        Cushion:
+        <select id="cushion">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+        </select>
+    </label>
+
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.3/pixi.min.js"
+        integrity="sha512-o3fAFcbCbTTJRFRNx4vByRZVtdKYF9uklctNjDXrN1JjT00rJxCCyNJSDi35rPBEqzWvYplcHLlEmyW34Ado8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
