@@ -12,15 +12,6 @@ let cushionSprite = null;
 // Get DOM elements
 const colorSelect = document.getElementById("color");
 const materialSelect = document.getElementById("material");
-
-// Add a cushion color selector to your HTML for demo purposes
-// <label>
-//   Cushion:
-//   <select id="cushion">
-//     <option value="white">White</option>
-//     <option value="black">Black</option>
-//   </select>
-// </label>
 const cushionSelect = document.getElementById("cushion");
 
 function getChairImagePath() {
