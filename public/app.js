@@ -17,7 +17,7 @@ const cushionSelect = document.getElementById("cushion");
 function getChairImagePath() {
     const color = colorSelect.value;
     const material = materialSelect.value;
-    return `assets/chair/${color}-${material}.jpg`;
+    return `assets/screwdriver/${color}-${material}.png`;
 }
 
 function getCushionImagePath() {
