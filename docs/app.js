@@ -30,27 +30,19 @@ async function loadProductImage() {
     const chairImagePath = getChairImagePath();
     const cushionImagePath = getCushionImagePath();
 
-    // Remove previous sprites if exist
-    if (productSprite) {
-        app.stage.removeChild(productSprite);
-        await PIXI.Assets.unload(chairImagePath);
-        productSprite.destroy(true);
-        productSprite = null;
-    }
-    if (cushionSprite) {
-        app.stage.removeChild(cushionSprite);
-        await PIXI.Assets.unload(cushionImagePath);
-        cushionSprite.destroy(true);
-        cushionSprite = null;
-    }
-
     try {
-        // Load chair base
+        // Preload new textures first
         const chairTexture = await PIXI.Assets.load(chairImagePath);
-        productSprite = new PIXI.Sprite(chairTexture);
-        productSprite.anchor.set(0.5);
-        productSprite.x = app.screen.width / 2;
-        productSprite.y = app.screen.height / 2;
+        let cushionTexture = null;
+        if (cushionImagePath) {
+            cushionTexture = await PIXI.Assets.load(cushionImagePath);
+        }
+
+        // Create new sprites but don't add them yet
+        const newChairSprite = new PIXI.Sprite(chairTexture);
+        newChairSprite.anchor.set(0.5);
+        newChairSprite.x = app.screen.width / 2;
+        newChairSprite.y = app.screen.height / 2;
 
         // Fit chair sprite
         const maxWidth = app.screen.width * 0.9;
@@ -58,21 +50,52 @@ async function loadProductImage() {
         const scaleX = maxWidth / chairTexture.width;
         const scaleY = maxHeight / chairTexture.height;
         const scale = Math.min(scaleX, scaleY, 1);
-        productSprite.scale.set(scale);
+        newChairSprite.scale.set(scale);
+        newChairSprite.alpha = 0; // Start invisible
 
-        app.stage.addChild(productSprite);
-
-        // Load cushion layer if selected
-        if (cushionImagePath) {
-            const cushionTexture = await PIXI.Assets.load(cushionImagePath);
-            cushionSprite = new PIXI.Sprite(cushionTexture);
-            cushionSprite.anchor.set(0.5);
-            cushionSprite.x = app.screen.width / 2;
-            cushionSprite.y = app.screen.height / 2;
-            cushionSprite.scale.set(scale); // Match chair scale
-
-            app.stage.addChild(cushionSprite);
+        // Create new cushion sprite if needed
+        let newCushionSprite = null;
+        if (cushionTexture) {
+            newCushionSprite = new PIXI.Sprite(cushionTexture);
+            newCushionSprite.anchor.set(0.5);
+            newCushionSprite.x = app.screen.width / 2;
+            newCushionSprite.y = app.screen.height / 2;
+            newCushionSprite.scale.set(scale);
+            newCushionSprite.alpha = 0;
         }
+
+        // Add new sprites
+        app.stage.addChild(newChairSprite);
+        if (newCushionSprite) {
+            app.stage.addChild(newCushionSprite);
+        }
+
+        // Fade in new sprites
+        let alpha = 0;
+        const fadeIn = () => {
+            alpha += 0.1;
+            newChairSprite.alpha = alpha;
+            if (newCushionSprite) newCushionSprite.alpha = alpha;
+
+            if (alpha >= 1) {
+                // Remove old sprites after fade in
+                if (productSprite) {
+                    app.stage.removeChild(productSprite);
+                    productSprite.destroy(true);
+                }
+                if (cushionSprite) {
+                    app.stage.removeChild(cushionSprite);
+                    cushionSprite.destroy(true);
+                }
+                // Update references
+                productSprite = newChairSprite;
+                cushionSprite = newCushionSprite;
+                app.ticker.remove(fadeIn);
+            }
+        };
+
+        app.ticker.add(fadeIn);
+
     } catch (err) {
         console.error("Image failed to load:", chairImagePath, cushionImagePath, err);
     }
