@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>Pixi Product Configurator</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-        }
 
+    <style>
         canvas {
-            border: 1px solid #ccc;
+            border: none;
             margin-top: 1rem;
         }
 
@@ -24,34 +24,53 @@
 </head>
 
 <body>
-    <h1>Configure Your Screwdriver</h1>
+    <main>
+        <div class="picker">
+            <label>Color:</label>
+            <div class="color-picker" id="colorPicker">
+                <div class="color-option" data-color="yellow" style="background-color: rgb(201, 178, 50);"></div>
+                <div class="color-option" data-color="brown" style="background-color: rgba(178, 102, 44);"></div>
+                <div class="color-option" data-color="green" style="background-color: rgb(51, 154, 37);"></div>
+            </div>
 
-    <label>
-        Color:
-        <select id="color">
-            <option value="yellow">Yellow</option>
-            <option value="brown">Brown</option>
-            <option value="green">Green</option>
-        </select>
-    </label>
+            <label>Screw Head:</label>
+            <div class="head-picker" id="headPicker">
+                <div class="head-option" data-value="philip"><i class="fa-solid fa-circle-plus fa-2x"></i></div>
+                <div class="head-option" data-value="flathead"><i class="fa-solid fa-circle-minus fa-2x"></i></div>
+            </div>
 
-    <label>
-        Head:
-        <select id="material">
-            <option value="philip">Philip</option>
-            <option value="flathead">Flathead</option>
-        </select>
-    </label>
+            <label style="display: none;">
+                Color:
+                <select id="color">
+                    <option value="yellow">Yellow</option>
+                    <option value="brown">Brown</option>
+                    <option value="green">Green</option>
+                </select>
+            </label>
 
-    <!-- <label>
-        Cushion:
-        <select id="cushion">
+            <label style="display: none;">
+                Head:
+                <select id="material">
+                    <option value="philip">Philip</option>
+                    <option value="flathead">Flathead</option>
+                </select>
+            </label>
+
+            <!-- <label>
+            Cushion:
+            <select id="cushion">
             <option value="white">White</option>
             <option value="black">Black</option>
-        </select>
-    </label> -->
+            </select>
+            </label> -->
+        </div>
 
-    <div id="canvas-container"></div>
+        <div id="canvas-container"></div>
+
+        <h1 class="title">Screwdriver</h1>
+
+
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.3/pixi.min.js"
         integrity="sha512-o3fAFcbCbTTJRFRNx4vByRZVtdKYF9uklctNjDXrN1JjT00rJxCCyNJSDi35rPBEqzWvYplcHLlEmyW34Ado8A=="

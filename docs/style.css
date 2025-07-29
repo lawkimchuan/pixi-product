@@ -6,3 +6,65 @@ body {
   max-width: 300px;
   margin-top: 1rem;
 }
+
+main {
+  position: relative;
+  text-align: right;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: left;
+  margin: 0;
+}
+
+.canvas-container {
+  position: relative;
+}
+
+.picker {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+label {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #666;
+}
+.color-picker {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.head-picker {
+  display: flex;
+  justify-content: end;
+
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.head-option {
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: black;
+  background-color: white;
+}

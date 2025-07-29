@@ -1,7 +1,7 @@
 // Create PixiJS app (v7+ syntax, compatible with latest CDN)
 const app = new PIXI.Application({
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 500,
     backgroundColor: 0xffffff
 });
 document.getElementById("canvas-container").appendChild(app.view);
@@ -14,9 +14,36 @@ const colorSelect = document.getElementById("color");
 const materialSelect = document.getElementById("material");
 const cushionSelect = document.getElementById("cushion");
 
+
+const colorPicker = document.getElementById('colorPicker');
+let currentColor = 'yellow'; // Default color
+
+const headPicker = document.getElementById('headPicker');
+//const headOptions = document.querySelectorAll('.head-option');
+//const screwHeadSelect = document.getElementById('screw-head');
+let currentHead = 'philip'; // Defautl head
+
+
+function updateProductColor(color) {
+    // This function can be used to update the product color in your PIXI app
+    console.log(`Updating product color to: ${color}`);
+    // You can implement the logic to change the product color here
+    currentColor = color; // Update the selected color
+}
+
+function updateProductHead(head) {
+    // This function can be used to update the product head in your PIXI app
+    console.log(`Updating product head to: ${head}`);
+    // You can implement the logic to change the product head here
+    currentHead = head; // Update the selected head
+}
+
 function getChairImagePath() {
-    const color = colorSelect.value;
-    const material = materialSelect.value;
+    //const color = colorSelect.value;
+    const color = currentColor;
+    //const material = materialSelect.value;
+    const material = currentHead;
+    console.log(`Selected chair color: ${color}, material: ${material}`);
     return `assets/screwdriver/${color}-${material}.png`;
 }
 
@@ -105,8 +132,59 @@ async function loadProductImage() {
 loadProductImage();
 
 // Event listeners
-colorSelect.addEventListener("change", loadProductImage);
+//colorSelect.addEventListener("change", loadProductImage);
 materialSelect.addEventListener("change", loadProductImage);
 if (cushionSelect) {
     cushionSelect.addEventListener("change", loadProductImage);
 }
+
+colorPicker.addEventListener('click', (e) => {
+    if (e.target.classList.contains('color-option')) {
+        // Remove previous selection
+        document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+
+        // Mark new selection
+        e.target.classList.add('selected');
+
+        console.log('Current color:', currentColor);
+
+        // Save selected color
+        selectedColor = e.target.dataset.color;
+        console.log('Selected color:', selectedColor);
+
+        // Call your PIXI logic here to change color if needed
+        if (selectedColor != currentColor) {
+            updateProductColor(selectedColor);
+            loadProductImage(); // Reload product image
+        } else {
+            console.log("Same color, no need to update");
+        }
+
+    }
+});
+
+headPicker.addEventListener('click', (e) => {
+    const option = e.target.closest('.head-option'); // Find closest .head-option ancestor
+
+    if (option && headPicker.contains(option)) {
+        // Remove previous selection
+        document.querySelectorAll('.head-option').forEach(opt => opt.classList.remove('selected'));
+
+        // Mark new selection
+        option.classList.add('selected');
+
+        console.log('Current screw head:', currentHead);
+
+        // Save selected value
+        selectedHead = option.dataset.value;
+        console.log('Selected head:', selectedHead);
+
+        // Call your PIXI logic here
+        if (selectedHead != currentHead) {
+            updateProductHead(selectedHead);
+            loadProductImage();
+        } else {
+            console.log("Same screw head, no need to update");
+        }
+    }
+});
