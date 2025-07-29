@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pixi Product Configurator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 1rem;
+        }
+
+        select {
+            margin: 0 0.5rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Configure Your Screwdriver</h1>
+
+    <label>
+        Color:
+        <select id="color">
+            <option value="yellow">Yellow</option>
+            <option value="brown">Brown</option>
+            <option value="green">Green</option>
+        </select>
+    </label>
+
+    <label>
+        Head:
+        <select id="material">
+            <option value="philip">Philip</option>
+            <option value="flathead">Flathead</option>
+        </select>
+    </label>
+
+    <!-- <label>
+        Cushion:
+        <select id="cushion">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+        </select>
+    </label> -->
+
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.3/pixi.min.js"
+        integrity="sha512-o3fAFcbCbTTJRFRNx4vByRZVtdKYF9uklctNjDXrN1JjT00rJxCCyNJSDi35rPBEqzWvYplcHLlEmyW34Ado8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="/app.js"></script>
+</body>
+
+</html>

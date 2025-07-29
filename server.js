@@ -1,11 +1,19 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 const app = express();
-const PORT = 3000;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Serve static files from the correct 'public' folder
-app.use(express.static(path.join(__dirname, 'docs')));
+// Serve built static frontend
+app.use(express.static(path.join(__dirname, 'dist')));
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+// Fallback for SPA routes (optional)
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist/index.html'));
+});
+
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
 });
