@@ -57,6 +57,13 @@ async function loadProductImage() {
     const chairImagePath = getChairImagePath();
     const cushionImagePath = getCushionImagePath();
 
+    const loadingEl = document.getElementById('image-loading');
+
+    // Set a timeout to show the loader after 0.5 second
+    const loaderTimeout = setTimeout(() => {
+        loadingEl.style.display = 'block';
+    }, 500);
+
     try {
         // Preload new textures first
         const chairTexture = await PIXI.Assets.load(chairImagePath);
@@ -125,6 +132,11 @@ async function loadProductImage() {
 
     } catch (err) {
         console.error("Image failed to load:", chairImagePath, cushionImagePath, err);
+    } finally {
+        // Cancel timeout if loading finished in <1s
+        clearTimeout(loaderTimeout);
+        // Hide loading UI when done
+        document.getElementById('image-loading').style.display = 'none';
     }
 }
 
